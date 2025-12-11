@@ -3,8 +3,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+
 
 // Schema
 const loginSchema = z.object({
@@ -24,27 +26,57 @@ function LoginForm() {
           password: ""
       }
   });
+    
+    const onLoginSubmit = async (values: LoginFormValues) => {
+        setIsLoading(true)
+        try {
+            console.log(values);
+            
+        } catch (error) {
+            
+        }
+    }
 
-    return <Form {...form}>
-        <form className="space-y-4">
-            <FormField control={form.control} name="email" render={({ field }) => (
-                <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                        <Input placeholder="Enter your email" {...field} />
-                    </FormControl>
-                </FormItem>
-            )} /> 
-            <FormField control={form.control} name="password" render={({ field }) => (
-                <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                        <Input type="password" placeholder="Enter your Password" {...field} />
-                    </FormControl>
-                </FormItem>
-            )} /> 
-      </form>
-  </Form>;
+    return (
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onLoginSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your email" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Enter your Password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? "Signing in ... " : "Sign In"}
+          </Button>
+        </form>
+      </Form>
+    );
 }
 
 export default LoginForm;
