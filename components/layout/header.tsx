@@ -6,22 +6,18 @@ import { Button } from "../ui/button";
 
 function Header() {
   const navItems = [
-    {
-      label: "Home",
-      href: "/",
-    },
-    {
-      label: "Create",
-      href: "/post/create",
-    },
+    { label: "Home", href: "/" },
+    { label: "Create", href: "/post/create" },
   ];
+
   return (
-    <header className="border-b bg-background sticky top0 z-10">
+    <header className="border-b bg-background sticky top-0 z-10">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-6">
-          <Link href={"/"} className="font-bold text-xl">
+          <Link href="/" className="font-bold text-xl">
             Next.js Blog
           </Link>
+
           <nav className="hidden md:flex items-center gap-6">
             {navItems.map((navItem) => (
               <Link
@@ -35,18 +31,16 @@ function Header() {
               </Link>
             ))}
           </nav>
-              </div>
-              <div className="flex items-center gap-4">
-                  <div className="hidden md:block">
-                      {/* Keep a placeholder for search */}
-                  </div>  
-                  {/* placeholder for theme toggle */}
-                  <div className="flex items-center gap-2">
-                      <Button variant={"default"} asChild>
-                          <Link href={"/auth"}>Login</Link>
-                      </Button>
-                  </div>
-              </div>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <div className="hidden md:block">{/* Search placeholder */}</div>
+
+          {/* Theme toggle placeholder */}
+          <Button asChild>
+            <Link href="/auth">Login</Link>
+          </Button>
+        </div>
       </div>
     </header>
   );
