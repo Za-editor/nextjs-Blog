@@ -2,9 +2,17 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import {  useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
@@ -13,41 +21,44 @@ const registerSchema = z
     name: z.string().min(3, "Name must be at least 3 characters long"),
     email: z.email("Please Enter a valid email"),
     password: z.string().min(6, "Password must be at least 6 characters long"),
-    confirmPassword: z.string().min(6, "Password do not match"),
+    confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Password do not match",
+    message: "Passwords do not match",
     path: ["confirmPassword"],
   });
 
-  type registerFormValues = z.infer<typeof registerSchema>
+type RegisterFormValues = z.infer<typeof registerSchema>;
 
 function RegisterForm() {
-  const [isLoading, setIsLoading] = useState(false)
-  const form = useForm<registerFormValues>({
+  const [isLoading, setIsLoading] = useState(false);
+
+  const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
       name: "",
       email: "",
       password: "",
-      confirmPassword: ""
-    }
-  })
+      confirmPassword: "",
+    },
+  });
 
-  const onregisterSubmit = async (values: registerFormValues) => {
-    setIsLoading(true)
+  const onRegisterSubmit = async (values: RegisterFormValues) => {
+    setIsLoading(true);
     try {
       console.log(values);
-      
+      // submit logic here
     } catch (error) {
-      
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onregisterSubmit)}
+        onSubmit={form.handleSubmit(onRegisterSubmit)}
         className="space-y-4"
       >
         <FormField
@@ -55,7 +66,7 @@ function RegisterForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel> Name</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input placeholder="Enter your name" {...field} />
               </FormControl>
@@ -63,12 +74,13 @@ function RegisterForm() {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel> Email</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input placeholder="Enter your email" {...field} />
               </FormControl>
@@ -76,12 +88,13 @@ function RegisterForm() {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel> Password</FormLabel>
+              <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
                   type="password"
@@ -93,12 +106,13 @@ function RegisterForm() {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel> Confirm Password</FormLabel>
+              <FormLabel>Confirm Password</FormLabel>
               <FormControl>
                 <Input
                   type="password"
@@ -112,7 +126,7 @@ function RegisterForm() {
         />
 
         <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Creating Account ... " : "Create Account"}
+          {isLoading ? "Creating Account..." : "Create Account"}
         </Button>
       </form>
     </Form>
