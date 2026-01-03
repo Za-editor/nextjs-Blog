@@ -26,6 +26,14 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 
 function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const onRegisterSubmit = async (values: RegisterFormValues) => {
+    setIsLoading(true);
+    try {
+      console.log(values);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -40,7 +48,7 @@ function RegisterForm() {
   
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form onSubmit={form.handleSubmit(onRegisterSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="name"

@@ -26,7 +26,7 @@ function LoginForm() {
     },
   });
 
-  const onSubmit = async (values: LoginFormvalues) => {
+  const onLoginSubmit = async (values: LoginFormvalues) => {
     setIsLoading(true);
     try {
       console.log(values);
@@ -39,7 +39,7 @@ function LoginForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onLoginSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="email"
