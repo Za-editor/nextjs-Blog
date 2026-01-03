@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 const registerSchema = z
   .object({
@@ -36,6 +37,7 @@ function RegisterForm() {
     },
   });
 
+  
   return (
     <Form {...form}>
       <form className="space-y-4">
@@ -95,6 +97,9 @@ function RegisterForm() {
             </FormItem>
           )}
         />
+        <Button type="submit" className="w-full" disabled={isLoading}>
+          {isLoading ? "Signing up..." : "Sign Up"}
+        </Button>
       </form>
     </Form>
   );
