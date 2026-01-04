@@ -2,19 +2,20 @@ CREATE TABLE "accounts" (
 	"id" varchar(255) PRIMARY KEY NOT NULL,
 	"user_id" varchar(255) NOT NULL,
 	"account_id" varchar(255) NOT NULL,
+	"provider_id" varchar(255) NOT NULL,
 	"password" text,
-	"creatd_at" timestamp DEFAULT now() NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "post" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"title" varchar(255) NOT NULL,
-	"dexcription" varchar(255) NOT NULL,
+	"description" varchar(255) NOT NULL,
 	"slug" varchar(255) NOT NULL,
 	"content" text NOT NULL,
-	"author_id" varchar(2555) NOT NULL,
-	"creatd_at" timestamp DEFAULT now() NOT NULL,
+	"author_id" varchar(255) NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "post_slug_unique" UNIQUE("slug")
 );
@@ -26,7 +27,7 @@ CREATE TABLE "sessions" (
 	"expires_at" timestamp NOT NULL,
 	"ip_address" varchar(255),
 	"user_agent" text,
-	"creatd_at" timestamp DEFAULT now() NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
@@ -35,7 +36,7 @@ CREATE TABLE "users" (
 	"name" varchar(255) NOT NULL,
 	"email" varchar(255) NOT NULL,
 	"email_verified" boolean DEFAULT false,
-	"creatd_at" timestamp DEFAULT now() NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );

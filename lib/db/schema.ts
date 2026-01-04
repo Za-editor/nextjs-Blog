@@ -13,7 +13,7 @@ export const users = pgTable("users", {
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   emailVerified: boolean("email_verified").default(false),
-  createdAt: timestamp("creatd_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
@@ -26,7 +26,7 @@ export const sessions = pgTable("sessions", {
   expiresAt: timestamp("expires_at").notNull(),
   ipAddress: varchar("ip_address", { length: 255 }),
   userAgent: text("user_agent"),
-  createdAt: timestamp("creatd_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
@@ -36,22 +36,22 @@ export const accounts = pgTable("accounts", {
     .references(() => users.id)
     .notNull(),
   accountId: varchar("account_id", { length: 255 }).notNull(),
-  providerId: varchar("account_id", { length: 255 }).notNull(),
+  providerId: varchar("provider_id", { length: 255 }).notNull(),
   password: text("password"),
-  createdAt: timestamp("creatd_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 export const posts = pgTable("post", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 255 }).notNull(),
-  description: varchar("dexcription", { length: 255 }).notNull(),
+  description: varchar("description", { length: 255 }).notNull(),
   slug: varchar("slug", { length: 255 }).notNull().unique(),
   content: text("content").notNull(),
-  authorId: varchar("author_id", { length: 2555 })
+  authorId: varchar("author_id", { length: 255 })
     .references(() => users.id)
     .notNull(),
-  createdAt: timestamp("creatd_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 

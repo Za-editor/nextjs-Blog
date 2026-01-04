@@ -1,4 +1,4 @@
-"use client ";
+"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
@@ -14,6 +14,8 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { signUp } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 const registerSchema = z
   .object({
@@ -31,14 +33,31 @@ const registerSchema = z
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
-function RegisterForm() {
+interface RegisterFormProps {
+  onSuccess? : () => void;
+}
+
+function RegisterForm({onSuccess}: RegisterFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const onRegisterSubmit = async (values: RegisterFormValues) => {
     setIsLoading(true);
     try {
-      console.log(values);
+      const { error} = await signUp.email({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      })
+
+      if (error) {
+        toast("Failed to create account. Please try again.");
+        return
+      }
+      toast("Account created successfully. Please Sign in with email & password.");
+      if(onSuccess) {onSuccess()};
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 

@@ -1,5 +1,5 @@
 {
-  "id": "90f43bba-8a7c-48ca-ba07-3bfef1d67cbd",
+  "id": "18af669e-e9f4-4fe2-988f-57dbb355fc4a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -26,14 +26,20 @@
           "primaryKey": false,
           "notNull": true
         },
+        "provider_id": {
+          "name": "provider_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
         "password": {
           "name": "password",
           "type": "text",
           "primaryKey": false,
           "notNull": false
         },
-        "creatd_at": {
-          "name": "creatd_at",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
@@ -85,8 +91,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "dexcription": {
-          "name": "dexcription",
+        "description": {
+          "name": "description",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
@@ -105,12 +111,12 @@
         },
         "author_id": {
           "name": "author_id",
-          "type": "varchar(2555)",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
-        "creatd_at": {
-          "name": "creatd_at",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
@@ -194,8 +200,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "creatd_at": {
-          "name": "creatd_at",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
@@ -260,8 +266,8 @@
           "notNull": false,
           "default": false
         },
-        "creatd_at": {
-          "name": "creatd_at",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,

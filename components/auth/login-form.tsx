@@ -3,9 +3,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { signIn } from "@/lib/auth-client";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
 //Schema ->
 const loginSchema = z.object({
   email: z.email("please enter a valid email address!"),
@@ -15,6 +26,7 @@ const loginSchema = z.object({
 type LoginFormvalues = z.infer<typeof loginSchema>;
 
 function LoginForm() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   //initialize form
@@ -29,13 +41,25 @@ function LoginForm() {
   const onLoginSubmit = async (values: LoginFormvalues) => {
     setIsLoading(true);
     try {
-      console.log(values);
-      
+      const { error } = await signIn.email({
+        email: values.email,
+        password: values.password,
+        rememberMe: true,
+      });
+
+      if (error) {
+        toast("Failed to sign in. Please check your credentials.");
+        return;
+      }
+
+      toast("Successfully signed in!");
+      router.push("/");
     } catch (error) {
       console.log(error);
-      
+    } finally {
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <Form {...form}>
