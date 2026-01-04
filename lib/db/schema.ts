@@ -12,7 +12,7 @@ export const users = pgTable("users", {
   id: varchar("id", { length: 255 }).primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull().unique(),
-  emailVerified: boolean("email_verified").default(false),
+  emailVerified: boolean("email_verified").default(true),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
@@ -22,7 +22,7 @@ export const sessions = pgTable("sessions", {
   userId: varchar("user_id", { length: 255 })
     .references(() => users.id)
     .notNull(),
-  token: varchar("token", { length: 255 }),
+  token: varchar("token", { length: 255 }).notNull(),
   expiresAt: timestamp("expires_at").notNull(),
   ipAddress: varchar("ip_address", { length: 255 }),
   userAgent: text("user_agent"),
@@ -42,7 +42,7 @@ export const accounts = pgTable("accounts", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-export const posts = pgTable("post", {
+export const posts = pgTable("posts", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 255 }).notNull(),
   description: varchar("description", { length: 255 }).notNull(),

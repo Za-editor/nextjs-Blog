@@ -1,5 +1,5 @@
 {
-  "id": "18af669e-e9f4-4fe2-988f-57dbb355fc4a",
+  "id": "f696235e-88dd-477c-8745-1a36e1461490",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -75,8 +75,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.post": {
-      "name": "post",
+    "public.posts": {
+      "name": "posts",
       "schema": "",
       "columns": {
         "id": {
@@ -132,9 +132,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "post_author_id_users_id_fk": {
-          "name": "post_author_id_users_id_fk",
-          "tableFrom": "post",
+        "posts_author_id_users_id_fk": {
+          "name": "posts_author_id_users_id_fk",
+          "tableFrom": "posts",
           "tableTo": "users",
           "columnsFrom": [
             "author_id"
@@ -148,8 +148,8 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "post_slug_unique": {
-          "name": "post_slug_unique",
+        "posts_slug_unique": {
+          "name": "posts_slug_unique",
           "nullsNotDistinct": false,
           "columns": [
             "slug"
@@ -180,7 +180,7 @@
           "name": "token",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "expires_at": {
           "name": "expires_at",
@@ -264,7 +264,7 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
-          "default": false
+          "default": true
         },
         "created_at": {
           "name": "created_at",

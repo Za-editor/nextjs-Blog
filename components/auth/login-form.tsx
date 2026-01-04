@@ -48,6 +48,8 @@ function LoginForm() {
       });
 
       if (error) {
+        console.log(error);
+        
         toast("Failed to sign in. Please check your credentials.");
         return;
       }
