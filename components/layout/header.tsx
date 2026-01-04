@@ -3,8 +3,14 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
+import { useSession } from "@/lib/auth-client";
+import UserMenu from "../auth/user-menu";
 
 function Header() {
+  const { data: session, isPending } = useSession();
+  const router = useRouter();
+
   const navItems = [
     { label: "Home", href: "/" },
     { label: "Create", href: "/post/create" },
@@ -37,9 +43,17 @@ function Header() {
           <div className="hidden md:block">{/* Search placeholder */}</div>
 
           {/* Theme toggle placeholder */}
-          <Button asChild>
-            <Link href="/auth">Login</Link>
-          </Button>
+
+          {isPending ? null : session?.user ? (
+            <UserMenu user={session?.user} />
+          ) : (
+            <Button
+              className="cursor-pointer"
+              onClick={() => router.push("/auth")}
+            >
+              Login
+            </Button>
+          )}
         </div>
       </div>
     </header>
