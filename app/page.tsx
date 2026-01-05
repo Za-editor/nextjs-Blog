@@ -8,14 +8,13 @@ export const metadata: Metadata = {
 };
 export default async function Home() {
   const posts = await getAllPosts();
-  console.log(posts);
 
   return (
     <main className="py-10">
       <div className="max-w-7xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-2">Welcome to the Blog</h1>
         {
-          posts?.length === 0 ? <div className="text-center py-10"> <h2 className="text-xl font-medium">No posts yet</h2></div> : <PostList  />
+          posts?.length === 0 ? <div className="text-center py-10"> <h2 className="text-xl font-medium">No posts yet</h2></div> : <PostList posts={posts} />
         }
       </div>
     </main>
