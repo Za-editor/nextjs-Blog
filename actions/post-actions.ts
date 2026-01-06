@@ -142,3 +142,50 @@ export async function updatePost(postId: number, formData: FormData) {
     };
   }
 }
+
+export async function deletePost(postId: number) { 
+  try {
+    const session = await auth.api.getSession({
+      headers: await headers()
+    })
+        if (!session || !session.user) {
+          return {
+            success: false,
+            message: "you must logged be in to delete a post",
+          };
+    }
+    
+    const postToDelete = await db.query.posts.findFirst({
+      where: eq(posts.id, postId)
+    })
+
+    if (!postToDelete) {
+      return {
+        success: false,
+        message: "Post not found",
+      };
+    }
+    if (postToDelete?.authorId !== session.user.id) {
+      return {
+        success: false,
+        message: "You are not authorized to delete this post",
+      };
+    }
+
+    await db.delete(posts).where(eq(posts.id, postId));
+
+    revalidatePath("/");
+    revalidatePath("/profile");
+
+    return {
+      success: true,
+      message: "Post deleted successfully",
+    };
+  } catch (error) {
+    console.log(error, "Failed to delete post");
+    return {
+      success: false,
+      message: "Failed to update post",
+    };
+  }
+}
