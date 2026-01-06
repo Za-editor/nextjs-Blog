@@ -25,3 +25,17 @@ export interface PostCardProps {
         }
     }
 }
+
+export interface PostContentProps {
+  post: {
+    id: number;
+    title: string;
+    description: string;
+    slug: string;
+    createdAt: Date;
+    author: {
+      name: string;
+    };
+    };
+    isAuthor: boolean;
+}

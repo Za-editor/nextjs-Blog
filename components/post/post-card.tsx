@@ -6,7 +6,7 @@ import { formatDate } from "@/lib/utils";
 function PotstCard({post} : PostCardProps) {
     return <Card className="h-full flex flex-col">
         <CardHeader>
-            <Link className="hover:underline" href={`/posts/${post.id}`}>
+            <Link className="hover:underline" href={`/post/${post.slug}`}>
                 <CardTitle className="text-2xl font-medium">{post.title}</CardTitle>
             </Link>
             <CardDescription>
@@ -15,7 +15,7 @@ function PotstCard({post} : PostCardProps) {
         </CardHeader>
 
         <CardContent>
-            <p className="text-shadow-muted-foreground">{post.content}</p>
+            <p className="text-shadow-muted-foreground">{post.description}</p>
         </CardContent>
     </Card>
 }
