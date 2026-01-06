@@ -7,7 +7,7 @@ import { slugify } from "@/lib/utils";
 import { and, eq, ne } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
-import { success } from "zod";
+
 
 export async function createPost(formData: FormData) {
   try {
